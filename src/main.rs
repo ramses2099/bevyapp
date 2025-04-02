@@ -1,33 +1,18 @@
 use bevy::prelude::*;
+mod tutorial;
 
-//
-#[derive(Component)]
-struct Person;
-#[derive(Component)]
-struct Name(String);
+// #region Entity
 
-// Component
+// #endregion
 
-// System
-fn hello_world_system() {
-    println!("Hello World!");
-}
-//
-fn startup_system(mut commands: Commands) {
-    commands.spawn((Person, Name("Alice".to_string())));
-    commands.spawn((Person, Name("Bob".to_string())));
-    commands.spawn((Person, Name("Charlie".to_string())));
-}
+// #region Component
+use tutorial::plugins::HelloPlugin;
+// #endregion
 
-fn greeting_people_system(query: Query<&Name, With<Person>>) {
-    for name in &query {
-        println!("Hello, {}!", name.0);
-    }
-}
+// #region System
+
+// #endregion
 
 fn main() {
-    App::new()
-        .add_systems(Startup, startup_system)
-        .add_systems(Update, (hello_world_system, greeting_people_system))
-        .run();
+    App::new().add_plugins(DefaultPlugins).add_plugins(HelloPlugin).run();
 }
